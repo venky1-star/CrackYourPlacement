@@ -1,0 +1,12 @@
+struct ListNode* middleNode(struct ListNode* head){
+struct ListNode* temp1=head,*temp2=head;
+    if(!temp1)
+        return NULL;
+    while(temp2 && temp2->next)
+    {
+        temp1=temp1->next;
+        temp2=temp2->next;
+        temp2=temp2->next;
+    }
+    return temp1;
+}
