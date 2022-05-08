@@ -1,0 +1,48 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+struct queue 
+{
+    struct TreeNode *node;
+    struct queue *next;
+}*front=NULL,*rear=NULL;
+int rangeSumBST(struct TreeNode* root, int low, int high){
+    if(!root)
+        return 0;
+struct TreeNode *temp;
+    struct queue *ptr;
+    int sum=0;
+    front=rear=(struct queue *)malloc(sizeof(struct queue ));
+    front->node=rear->node=root;
+    front->next=rear->next=NULL;
+    while(front)
+    {
+        temp=front->node;
+        if(temp->val>=low && temp->val<=high)
+            sum=sum+temp->val;
+        if(temp->left && temp->val>=low)
+        {
+            rear->next=(struct queue *)malloc(sizeof(struct queue ));
+            rear=rear->next;
+            rear->node=temp->left;
+            rear->next=NULL;
+        }
+        if(temp->right && temp->val<=high)
+        {
+            rear->next=(struct queue * )malloc(sizeof(struct queue ));
+            rear=rear->next;
+            rear->node=temp->right;
+            rear->next=NULL;
+        }
+        ptr=front;
+        front=front->next;
+        free(ptr);
+    }
+    return sum;
+}
