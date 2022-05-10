@@ -1,0 +1,29 @@
+bool isValid(char * s){
+ int l=strlen(s);
+     int i,top=-1;
+    char a[l];
+    for(i=0;i<l;i++)
+    {
+        if(s[i]=='(' || s[i]=='{' || s[i]=='[')
+            a[++top]=s[i];
+        else if(s[i]==')')
+        {
+            if(top==-1 ||a[top--]!='(')
+                return false;
+        }
+         else if(s[i]=='}')
+        {
+            if(top==-1 || a[top--]!='{')
+                return false;
+        }
+         else if(s[i]==']')
+        {
+            if(top==-1 || a[top--]!='[')
+                return false;
+        }
+    }
+    if(top==-1)
+        return true;
+    else
+        return false;
+}
