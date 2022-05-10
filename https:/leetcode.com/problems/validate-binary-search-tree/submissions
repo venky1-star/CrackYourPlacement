@@ -1,0 +1,66 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+struct arr
+{
+    int data;
+    struct arr *next;
+};
+struct arr *head=NULL,*end;
+void inorder(struct TreeNode *root)
+{
+    if(root)
+    {
+        inorder(root->left);
+        if(head==NULL)
+        {
+            head=(struct arr *)malloc(sizeof(struct arr));
+            head->data=root->val;
+            end=head;
+            end->next=NULL;
+        }
+        else
+        {
+            end->next=(struct arr *)malloc(sizeof(struct arr));
+            end=end->next;
+            end->data=root->val;
+            end->next=NULL;
+        }
+        inorder(root->right);
+    }
+}
+bool isValidBST(struct TreeNode* root){
+inorder(root);
+    if(head)
+    {
+     int prev=head->data;
+        head=head->next;
+        while(head)
+        {
+            if(head->data<=prev)
+            {
+                while(head)
+                {
+                    end=head;
+                    head=head->next;
+                    free(end);
+                }
+                return false;
+            }
+            else
+            {
+                end=head;
+                head=head->next;
+                prev=end->data;
+                free(end);
+            }
+        }
+    }
+    return true;
+}
