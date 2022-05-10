@@ -1,0 +1,51 @@
+struct stack
+{
+    int d;
+    struct stack* next;
+}*head;
+
+bool isPalindrome(int x){
+if(x<0)
+    return false;
+    struct stack *temp;
+    int y=x;
+    while(x>0)
+    {
+        if(!head)
+        {
+            head=(struct stack *)malloc(sizeof(struct stack));
+            head->next=NULL;
+            head->d=x%10;
+        }
+        else
+        {
+            temp=(struct stack *)malloc(sizeof(struct stack));
+            temp->d=x%10;
+            temp->next=head;
+            head=temp;
+        }
+        x=x/10;
+    }
+    x=y;
+    while(x>0)
+    {
+        if(x%10==head->d)
+        {
+            temp=head;
+            head=head->next;
+            free(temp);
+        }
+        else
+        {
+            while(head)
+            {
+                temp=head;
+                head=head->next;
+                free(temp);
+            }
+            return false;
+        }
+        x=x/10;
+    }
+    return true;
+}
