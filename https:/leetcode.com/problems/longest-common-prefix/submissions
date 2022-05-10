@@ -1,0 +1,71 @@
+
+struct string
+{
+    char ch;
+    struct string *next;
+}*head=NULL,*end=NULL;
+char * longestCommonPrefix(char ** strs, int strsSize){
+int j=0,k,len=0,l=strlen(strs[0]);
+    while(j<l)
+    {
+        char c=strs[0][j];
+        for(k=0;k<strsSize;k++)
+        {
+            if(c!='\0' && strs[k][j]=='\0')
+            {
+                k=k-1;
+                break;
+            }
+            if(c=='\0' && strs[k][j]!='\0')
+            {
+                k=k-1;
+                break;
+            }
+            if(strs[k][j]==c)
+             continue;
+            k=k-1;
+            break;
+        }
+        if(k==strsSize)
+        {
+            if(head==NULL)
+            {
+                head=(struct string *)malloc(sizeof(struct string));
+                head->ch=c;
+                end=head;
+                //printf("%c",c);
+                end->next=NULL;
+                len++;
+            }
+            else
+            {
+                end->next=(struct string *)malloc(sizeof(struct string ));
+                end=end->next;
+                end->ch=c;
+                //printf("%c",c);
+                end->next=NULL;
+                len++;
+            }
+            j=j+1;
+        }
+        else
+            break;
+    }
+    if(head==NULL)
+        return "";
+    else
+    {
+        char str[len+1];
+        k=0;
+        while(head)
+        {
+            str[k++]=head->ch;
+            end=head;
+            head=head->next;
+            free(end);
+        }
+        str[k]='\0';
+        char *s=str;
+        return s;
+    }
+}
