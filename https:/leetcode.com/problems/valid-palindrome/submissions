@@ -1,0 +1,73 @@
+struct string
+{
+    char ch;
+    struct string *next;
+}*head=NULL,*end=NULL;
+bool isPalindrome(char * s){
+int l=strlen(s),len=0,i;
+    for(i=0;i<l;i++)
+    {
+        if(s[i]>='A' && s[i]<='Z')
+        {
+            if(head==NULL)
+            {
+                head=(struct string *)malloc(sizeof(struct string ));
+                head->ch=s[i]-'A'+'a';
+                end=head;
+                head->next=NULL;
+                len++;
+            }
+            else
+            {
+             end->next=(struct string *)malloc(sizeof(struct string ));
+                end=end->next;
+                end->ch=s[i]-'A'+'a';
+                end->next=NULL;
+                len++;
+            }
+        }
+        else if((s[i]>='a' && s[i]<='z') || (s[i]>='0' && s[i]<='9'))
+        {
+                     if(head==NULL)
+            {
+                head=(struct string *)malloc(sizeof(struct string ));
+                head->ch=s[i];
+                end=head;
+                head->next=NULL;
+                         len++;
+            }
+            else
+            {
+             end->next=(struct string *)malloc(sizeof(struct string ));
+                end=end->next;
+                end->ch=s[i];
+                end->next=NULL;
+                len++;
+            }
+        }
+    }
+    char str[len+1];
+    int k=0;
+    while(head)
+    {
+        str[k++]=head->ch;
+        end=head;
+        head=head->next;
+        free(end);
+    }
+    str[k]='\0';
+    printf("%s",str);
+    i=0;
+    k=len-1;
+    while(i<k)
+    {
+        if(str[i]==str[k])
+        {
+         i++;
+         k--;
+        }
+        else
+            return false;
+    }
+    return true;
+}
