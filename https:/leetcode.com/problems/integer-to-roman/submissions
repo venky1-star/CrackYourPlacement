@@ -1,0 +1,129 @@
+struct string
+{
+    char ch;
+    struct string *next;
+}*head=NULL,*end=NULL;
+int len=0;
+void insert(char ch)
+{
+    if(!head)
+    {
+        head=(struct string *)malloc(sizeof(struct string));
+        head->ch=ch;
+        end=head;
+        end->next=NULL;
+        len++;
+    }
+    else
+    {
+        end->next=(struct string *)malloc(sizeof(struct string ));
+        end=end->next;
+        end->ch=ch;
+        end->next=NULL;
+        len++;
+    }
+}
+void print(int num)
+{
+    if(num==1)
+        insert('I');
+    else if(num==5)
+        insert('V');
+    else if(num==10)
+        insert('X');
+    else if(num==50)
+    insert('L');
+    else if(num==100)
+        insert('C');
+    else if(num==500)
+        insert('D');
+    else if(num==1000)
+        insert('M');
+}
+char * intToRoman(int num){
+while(num>0)
+{
+ if(num>=1000)
+ {
+     print(1000);
+     num=num-1000;
+ }
+ else if( num>=900)
+ {
+     print(100);
+     insert('M');
+     num=num-900;
+ }
+ else if(num>=500)
+ {
+     print(500);
+     num=num-500;
+ }
+  else if(num>=400)
+  {
+      print(100);
+      insert('D');
+      num=num-400;
+  }
+    else if(num>=100)
+    {
+        print(100);
+        num=num-100;
+    }
+    else if(num>=90)
+    {
+        print(10);
+        insert('C');
+        num=num-90;
+    }
+    else if(num>=50)
+    {
+        print(50);
+        num=num-50;
+    }
+    else if(num>=40)
+    {
+        print(10);
+        insert('L');
+        num=num-40;
+    }        
+    else if(num>=10)
+    {
+        print(10);
+        num=num-10;
+    }
+    else if(num==9)
+    {
+        insert('I');
+        insert('X');
+        num=0;
+    }
+    else if(num>=5)
+    {
+        print(5);
+        num=num-5;
+    }
+    else if(num==4)
+    {
+        insert('I');
+        insert('V');
+        num=0;
+    }
+    else if(num>=1)
+    {
+        print(1);
+        num=num-1;
+    }
+}
+    char *str=malloc((len+1)*sizeof(char));
+    char *s=str;
+    while(head)
+    {
+        *str++=head->ch;
+        end=head;
+        head=head->next;
+        free(end);
+    }
+    *str='\0';
+    return s;
+}
