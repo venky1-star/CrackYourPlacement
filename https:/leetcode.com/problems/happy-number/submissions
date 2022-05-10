@@ -1,0 +1,26 @@
+
+bool isHappy(int n){
+while(n>9)
+{
+    int s=0;
+    while(n>0)
+    {
+        s=s+(int)pow(n%10,2);
+        n=n/10;
+    }
+    n=s;
+}
+    do
+    {
+        int s=0;
+    while(n>0)
+    {
+        s=s+(int)pow(n%10,2);
+        n=n/10;
+    }
+    n=s;
+    }while(n>9);
+    if(n==1)
+        return true;
+    return false;
+}
