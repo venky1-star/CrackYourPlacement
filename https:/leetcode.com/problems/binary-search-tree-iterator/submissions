@@ -1,0 +1,78 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+
+
+typedef struct node{
+   int data;
+   struct node *next; 
+} BSTIterator;
+BSTIterator* end,*BSTIte;
+void inorder(struct TreeNode *root)
+{
+    if(root)
+    {
+        inorder(root->left);
+        if(BSTIte==NULL)
+        {
+            BSTIte=(BSTIterator *)malloc(sizeof(BSTIterator));
+            BSTIte->data=root->val;
+            end=BSTIte;
+            end->next=NULL;
+        }
+        else
+        {
+            end->next=(BSTIterator *)malloc(sizeof(BSTIterator));
+            end=end->next;
+            end->data=root->val;
+            end->next=NULL;
+        }
+        inorder(root->right);
+    }
+}
+BSTIterator* bSTIteratorCreate(struct TreeNode* root) {
+    BSTIte=NULL;
+    inorder(root);
+    return BSTIte;
+}
+
+int bSTIteratorNext(BSTIterator* obj) {
+  if(BSTIte)
+  {
+      int d=BSTIte->data;
+       BSTIte=BSTIte->next;
+      return d;
+  }
+    return 0;
+}
+
+bool bSTIteratorHasNext(BSTIterator* obj) {
+  if(BSTIte)
+      return true;
+    return false;
+}
+
+void bSTIteratorFree(BSTIterator* obj) {
+    BSTIterator *temp;
+    while(obj)
+    {
+      temp=obj;
+        obj=obj->next;
+    }
+}
+
+/**
+ * Your BSTIterator struct will be instantiated and called as such:
+ * BSTIterator* obj = bSTIteratorCreate(root);
+ * int param_1 = bSTIteratorNext(obj);
+ 
+ * bool param_2 = bSTIteratorHasNext(obj);
+ 
+ * bSTIteratorFree(obj);
+*/
