@@ -1,0 +1,16 @@
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        lst=[]
+        n=len(nums)
+        def permute(nums,i):
+            if i==n:
+                if nums not in lst:
+                    lst.append(nums)
+                return
+            for j in range(i,n):
+                nums[i],nums[j]=nums[j],nums[i]
+                l=nums.copy()
+                permute(l,i+1)
+                nums[i],nums[j]=nums[j],nums[i]
+        permute(nums,0)
+        return lst
