@@ -1,0 +1,23 @@
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        lst=[[]]
+        le=len(nums)
+        nums.sort()
+        def subsets(l,i,k):
+            if i==le:
+                if k==0:
+                    if l not in lst:
+                        lst.append(l)
+                return
+            if k==0:
+                if l not in lst:
+                    lst.append(l)
+                return
+            for j in range(i,le):
+                l.append(nums[j])
+                l1=l.copy()
+                subsets(l1,j+1,k-1)
+                l.pop()
+        for i in range(le):
+            subsets([],0,i+1)
+        return lst
