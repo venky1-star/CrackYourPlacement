@@ -1,0 +1,28 @@
+            
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]: 
+        lst=[]
+        def recursive(c,i,n,t,s,l):
+          prev=-1
+          for j in range(i,n,1):
+            if c[j]==prev:
+                continue
+            l.append(c[j])
+            s=s+c[j]
+            if s<t:
+                recursive(c,j+1,n,t,s,l)
+                s=s-l.pop()
+            elif s==t:
+                l1=l.copy()
+                l1.sort()
+                if l1 not in lst:
+                    lst.append(l1)
+                s=s-l.pop()
+            elif s>t:
+                s=s-l.pop()
+            prev=c[j]
+          return 
+        candidates.sort()
+        recursive(candidates,0,len(candidates),target,0,[])
+        lst.sort()
+        return lst
