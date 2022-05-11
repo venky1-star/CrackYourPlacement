@@ -1,0 +1,18 @@
+class Solution:
+    def countArrangement(self, n: int) -> int:
+        count=[0]
+        l=[]
+        for i in range(n):
+            l.append(i+1)
+        print(l)
+        def permutation(i):
+            if i==n:
+                count[0]+=1
+                return
+            for j in range(i,n):
+                l[i],l[j]=l[j],l[i]
+                if (i+1)%l[i]==0 or l[i]%(i+1)==0:
+                      permutation(i+1)
+                l[i],l[j]=l[j],l[i]
+        permutation(0)
+        return count[0]
