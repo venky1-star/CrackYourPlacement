@@ -1,0 +1,21 @@
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        lst=[]
+        a=[]
+        for i in range(n):
+            a.append(i+1)
+        def backtrack(l,i,k):
+            if i==n:
+                if k==0:
+                    lst.append(l)
+                return
+            if k==0:
+                lst.append(l)
+                return
+            for j in range(i,n,1):
+                l.append(a[j])
+                l1=l.copy()
+                backtrack(l1,j+1,k-1)
+                l.pop()
+        backtrack([],0,k)
+        return lst
