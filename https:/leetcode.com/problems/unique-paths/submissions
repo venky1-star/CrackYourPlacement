@@ -1,0 +1,18 @@
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        a=[]
+        if m==1 and n==1:
+            return 1
+        for i in range(m):
+                a.append([0]*n)
+        def paths(i,j):
+            if i==m-1 and j==n-1:
+                return 1
+            if i==m or j==n:
+                return 0
+            if a[i][j]!=0:
+                return a[i][j]
+            a[i][j]=paths(i+1,j)+paths(i,j+1)
+            return a[i][j]
+        paths(0,0)
+        return a[0][0]
