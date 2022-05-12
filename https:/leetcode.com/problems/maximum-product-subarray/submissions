@@ -1,0 +1,16 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        res=max(nums)
+        curmax,curmin=1,1
+        for i in nums:
+            if i==0:
+                curmin,curmax=1,1
+            temp1=curmax*i
+            temp2=curmin*i
+            curmax=max(temp1,temp2)
+            curmax=max(curmax,i)
+            curmin=min(temp1,temp2)
+            curmin=min(curmin,i)
+            if curmax>res:
+                res=curmax
+        return res
