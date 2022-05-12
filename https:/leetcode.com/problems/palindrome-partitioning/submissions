@@ -1,0 +1,21 @@
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        out=[]
+        n=len(s)
+        def palindrome(l):
+            if l==l[::-1]:
+                return 1
+            return 0
+        def partition(lst,i):
+            if i==n:
+                out.append(lst)
+                return
+            for j in range(i,n):
+                l1=s[i:j+1]
+                if palindrome(l1):
+                    lst.append(l1)
+                    ls=lst.copy()
+                    partition(ls,j+1)
+                    lst.pop()
+        partition([],0)
+        return out
