@@ -1,0 +1,17 @@
+class Solution:
+    def findLength(self, nums1: List[int], nums2: List[int]) -> int:
+        out=[]
+        n=len(nums1)
+        m=len(nums2)
+        for i in range(n):
+            out.append([0]*m)
+        ma=0
+        for i in range(n):
+            for j in range(m):
+                if (i==0 or j==0) and nums1[i]==nums2[j]:
+                    out[i][j]=1
+                elif (i!=0 and j!=0) and nums1[i]==nums2[j]:
+                    out[i][j]=out[i-1][j-1]+1
+                if out[i][j]>ma:
+                    ma=out[i][j]
+        return ma
