@@ -1,0 +1,27 @@
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        n=len(nums)
+        l=[-1]*n
+        length=0;
+        for i in range(n):
+            if i==0:
+                l[length]=nums[0]
+                length=length+1
+            elif nums[i]>l[length-1]:
+                l[length]=nums[i]
+                length=length+1
+            else:
+                low=0
+                high=length-1
+                mid=(0+high)//2
+                while(low<=high):
+                    mid=(low+high)//2
+                    if l[mid]>nums[i]:
+                        high=mid-1
+                    elif l[mid]<nums[i]:
+                        low=mid+1
+                    else:
+                        low=mid
+                        break
+                l[low]=nums[i]
+        return length
