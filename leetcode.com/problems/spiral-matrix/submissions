@@ -1,0 +1,30 @@
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        out=[]
+        n=len(matrix)
+        m=len(matrix[0])
+        top=0
+        down=n-1
+        left=0
+        right=m-1
+        di=0
+        while top<=down and left<=right:
+            if di==0:
+                for i in range(left,right+1,1):
+                    out.append(matrix[top][i])
+                top=top+1
+            if di==1:
+                for i in range(top,down+1,1):
+                    out.append(matrix[i][right])
+                right=right-1
+            if di==2:
+                for i in range(right,left-1,-1):
+                    out.append(matrix[down][i])
+                down=down-1
+            if di==3:
+                for i in range(down,top-1,-1):
+                    out.append(matrix[i][left])
+                left=left+1
+            di=di+1
+            di=di%4
+        return out
