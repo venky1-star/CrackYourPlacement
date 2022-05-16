@@ -1,0 +1,71 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+struct dequeue
+{
+    struct ListNode *node;
+    struct dequeue *next;
+    struct dequeue *front;
+};
+void reorderList(struct ListNode* head){
+struct dequeue *end,*beg=malloc(sizeof(struct dequeue ));
+    end=beg;
+    struct ListNode *temp=head;
+    beg->front=NULL;
+    beg->next=NULL;
+    beg->node=head;
+    temp=temp->next;
+    while(temp)
+    {
+        end->next=(struct dequeue *)malloc(sizeof(struct dequeue));
+        end->next->front=end;
+        end=end->next;
+        end->node=temp;
+        end->next=NULL;
+        temp=temp->next;
+    }
+     struct dequeue *ptr;
+    ptr=beg;
+    temp=beg->node;
+    temp->next=NULL;
+    beg=beg->next;
+    if(beg)
+    beg->front=NULL;
+    if(ptr==end)
+        end=NULL;
+    free(ptr);
+   while(end)
+    {
+        temp->next=end->node;
+       temp=temp->next;   
+       if(beg!=end)
+       {
+        temp->next=beg->node;
+       temp=temp->next;
+       }
+       else
+           beg=NULL;
+       temp->next=NULL;  
+       if(beg)
+       {
+           ptr=beg;
+           beg=beg->next;
+           if(beg)
+           beg->front=NULL;
+           free(ptr);
+       }
+       if(end)
+       {
+       ptr=end;
+       end=end->front;
+       if(end)
+           end->next=NULL;
+        free(ptr);
+       }
+   }
+}
