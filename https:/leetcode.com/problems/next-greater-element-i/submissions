@@ -1,0 +1,25 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* nextGreaterElement(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize){
+     *returnSize=nums1Size;
+int hashmap[10001],i,j,top=-1;
+    int stack[nums2Size];
+    for(i=0;i<nums2Size;i++)
+    {
+        while(top!=-1 && stack[top]<nums2[i])
+        {
+            hashmap[stack[top--]]=nums2[i];
+            
+        }
+        stack[++top]=nums2[i];
+    }
+    for(i=top;i>=0;i--)
+        hashmap[stack[i]]=-1;
+   int *returns=malloc(nums1Size*sizeof(int));
+    for(i=0;i<nums1Size;i++)
+        returns[i]=hashmap[nums1[i]];
+    for(i=0;i<nums1Size;i++)
+        printf("%d ",returns[i]);
+    return returns;
+}
