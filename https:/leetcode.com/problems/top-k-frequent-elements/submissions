@@ -1,0 +1,24 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        dic={}
+        for i in nums:
+            if i not in dic.keys():
+                dic[i]=1
+            else:
+                dic[i]+=1
+        lst=[]
+        for i in range(len(nums)+1):
+            lst.append([])
+        for ke,freq in dic.items():
+            lst[freq].append(ke)
+        out=[]
+        f=0
+        for i in range(len(nums),-1,-1):
+            for j in lst[i]:
+                out.append(j)
+                if len(out)==k:
+                    f=1
+                    break
+            if f==1:
+                break
+        return out
