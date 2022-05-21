@@ -1,0 +1,30 @@
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount==0:
+            return 0
+        n=len(coins)
+        coins.reverse()
+        coins.append(0)
+        coins.reverse()
+        a=[]
+        for i in range(n+1):
+            a.append([amount+1]*(amount+1))
+        m=amount
+        for i in range(n+1):
+            for j in range(m+1):
+                if i==0 and j==0:
+                    a[i][j]=0
+                elif i==0:
+                    a[i][j]=amount+1
+                elif j==0:
+                    a[i][j]=0
+                else:
+                    if(coins[i]<=amount):
+                        k=j-coins[i]
+                        a[i][j]=min(1+a[i][k],a[i-1][j])
+                    else:
+                        a[i][j]=a[i-1][j]
+        if a[n][m]==m+1:
+            return -1
+        else:
+            return a[n][m]
