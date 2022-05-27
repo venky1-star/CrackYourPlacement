@@ -1,0 +1,43 @@
+int *bfs(struct graph *g, int n, int m) {
+    // your code here
+    int *a=malloc(n*sizeof(int));
+    int vis[10000]={},i=0,j,k=0;
+    struct ListNode *que[n];
+    int front=-1,rear=-1;
+        struct ListNode *temp=g->head[0];
+       a[i++]=k;
+       vis[k]=1;
+        while(temp)
+        {
+            if(vis[temp->data]==0)
+            {
+                vis[temp->data]=1;
+                if(front==-1)
+                {
+                    front=rear=0;
+                    que[front]=temp;
+                }
+                else
+                 que[++rear]=temp;   
+            }
+            temp=temp->next;
+        }
+        while(front!=-1 && front<=rear)
+        {
+            struct ListNode *ptr=que[front];
+            a[i++]=ptr->data;
+            struct ListNode *ptr1=g->head[ptr->data];
+           while(ptr1)
+            {
+            if(vis[ptr1->data]==0)
+            {
+                 vis[ptr1->data]=1;
+                 que[++rear]=ptr1;   
+            }
+            ptr1=ptr1->next;
+           } 
+           front=front+1;
+        }
+    g->connected_with_zero=i;
+    return a;
+}
