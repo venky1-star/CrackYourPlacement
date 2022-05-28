@@ -1,0 +1,31 @@
+bool cycle(struct graph *g,int i,int parent,int vis[])
+{
+    struct ListNode *temp=g->head[i];
+    vis[i]=1;
+    while(temp)
+    {
+        if(vis[temp->data]==0)
+        {
+       if(cycle(g,temp->data,i,vis))
+       return true;
+        }
+        else if(temp->data!=parent)
+        return true;
+        temp=temp->next;
+    }
+    return false;
+}
+bool isCycle(struct graph *g, int n, int m) {
+    // your code goes here
+    int i;
+    int vis[100000]={};
+    for(i=0;i<n;i++)
+    {
+        if(vis[i]==0)
+        {
+            if(cycle(g,i,-1,vis))
+            return true;
+        }
+    }
+    return false;
+}
