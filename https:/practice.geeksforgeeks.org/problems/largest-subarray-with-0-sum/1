@@ -1,0 +1,16 @@
+class Solution:
+    def maxLen(self, n, arr):
+        #Code here
+        dic={}
+        s=0
+        ind=0
+        for i in range(n):
+            s=s+arr[i]
+            if s==0:
+                ind=i+1
+            elif s in dic.keys():
+                if i-dic[s]>ind:
+                    ind=i-dic[s]
+            else:
+                dic[s]=i
+        return ind
